@@ -11,6 +11,12 @@ fork of this repo can be published for free with no build server of your
 own. It also runs fine with a local/self-hosted Jekyll build if you'd
 rather host elsewhere.
 
+![frontpage top](assets/images/screen1.png)
+![frontpage mid](assets/images/screen2.png)
+![frontpage bottom](assets/images/screen3.png)
+![internal page](assets/images/screen4.png)
+
+
 ## Quick start (GitHub Pages)
 
 1. Fork or use this repo as a template.
