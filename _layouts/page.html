@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<main class="post-page">
+  <div class="post-page__inner wrap">
+
+    {% include sidebar-nav.html current=page.url %}
+
+    <article class="post-content post-content--page">
+      <h1>{{ page.title }}</h1>
+      {% if page.show_mail_details %}{% include mail-details-page.html %}{% endif %}
+      {{ content }}
+    </article>
+
+  </div>
+</main>

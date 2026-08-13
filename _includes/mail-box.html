@@ -1,0 +1,27 @@
+{% if site.mail.address %}
+<div class="box box--mail-topics" id="mail">
+  <div class="box__section">
+    <h3>Send a letter</h3>
+    <p class="mail-address">{{ site.mail.address }}</p>
+    {% if site.mail.rules and site.mail.rules.size > 0 %}
+    <ul class="mail-rules">
+      {% for rule in site.mail.rules %}<li>{{ rule }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+
+  <div class="box__divider"></div>
+  <div class="box__section">
+    <h3>Likes hearing about</h3>
+    {% if site.mail.topics and site.mail.topics.size > 0 %}
+    <ul class="topic-tags">
+      {% for topic in site.mail.topics %}<li>{{ topic }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if site.mail.statement %}
+    <blockquote class="statement-box">&ldquo;{{ site.mail.statement }}&rdquo;</blockquote>
+    {% endif %}
+    <a class="box__link" href="{{ '/send-a-letter/' | relative_url }}">More on letter writing &rarr;</a>
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,97 @@
+{% assign has_donate = false %}
+{% if site.donate.donation_embed or site.donate.paypal_email or site.donate.venmo or site.donate.cashapp or site.donate.zelle or site.donate.bitcoin or site.donate.gofundme_url or site.donate.commissary_instructions or site.donate.amazon_wishlist_url %}
+  {% assign has_donate = true %}
+{% endif %}
+{% if has_donate %}
+<div class="box box--donate" id="donate">
+  <h3>Support the commissary &amp; legal fund</h3>
+  {% if site.donate.blurb %}<p>{{ site.donate.blurb }}</p>{% endif %}
+
+  {% if site.donate.donation_embed %}
+  <div class="donation-embed">{{ site.donate.donation_embed }}</div>
+  {% endif %}
+
+  {% assign has_methods = false %}
+  {% if site.donate.paypal_email or site.donate.venmo or site.donate.cashapp or site.donate.zelle or site.donate.bitcoin or site.donate.gofundme_url or site.donate.commissary_instructions %}
+    {% assign has_methods = true %}
+  {% endif %}
+  {% if has_methods %}
+  <ul class="donate-methods">
+    {% if site.donate.paypal_email %}
+    <li class="donate-method donate-method--paypal">
+      <span class="donate-method__icon">P</span>
+      <span class="donate-method__body">
+        <span class="donate-method__label">PayPal</span>
+        <span class="donate-method__value">{{ site.donate.paypal_email }}</span>
+      </span>
+    </li>
+    {% endif %}
+    {% if site.donate.venmo %}
+    <li class="donate-method donate-method--venmo">
+      <span class="donate-method__icon">V</span>
+      <span class="donate-method__body">
+        <span class="donate-method__label">Venmo</span>
+        <span class="donate-method__value">{{ site.donate.venmo }}</span>
+      </span>
+    </li>
+    {% endif %}
+    {% if site.donate.cashapp %}
+    <li class="donate-method donate-method--cashapp">
+      <span class="donate-method__icon">$</span>
+      <span class="donate-method__body">
+        <span class="donate-method__label">Cash App</span>
+        <span class="donate-method__value">{{ site.donate.cashapp }}</span>
+      </span>
+    </li>
+    {% endif %}
+    {% if site.donate.zelle %}
+    <li class="donate-method donate-method--zelle">
+      <span class="donate-method__icon">Z</span>
+      <span class="donate-method__body">
+        <span class="donate-method__label">Zelle</span>
+        <span class="donate-method__value">{{ site.donate.zelle }}</span>
+      </span>
+    </li>
+    {% endif %}
+    {% if site.donate.bitcoin %}
+    <li class="donate-method donate-method--btc">
+      <span class="donate-method__icon">&#8383;</span>
+      <span class="donate-method__body">
+        <span class="donate-method__label">Bitcoin</span>
+        <span class="donate-method__value">{{ site.donate.bitcoin }}</span>
+      </span>
+    </li>
+    {% endif %}
+    {% if site.donate.gofundme_url %}
+    <li class="donate-method donate-method--gofundme">
+      <span class="donate-method__icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1 14.5v-9l6 4.5-6 4.5Z"/></svg>
+      </span>
+      <span class="donate-method__body">
+        <span class="donate-method__label">GoFundMe</span>
+        <span class="donate-method__value"><a href="{{ site.donate.gofundme_url }}">View our campaign &rarr;</a></span>
+      </span>
+    </li>
+    {% endif %}
+    {% if site.donate.commissary_instructions %}
+    <li class="donate-method donate-method--commissary">
+      <span class="donate-method__icon">
+        <svg viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1v-9.5Z"/></svg>
+      </span>
+      <span class="donate-method__body">
+        <span class="donate-method__label">{{ site.donate.commissary_service | default: "Facility commissary" }}</span>
+        <span class="donate-method__value">{{ site.donate.commissary_instructions }}</span>
+      </span>
+    </li>
+    {% endif %}
+  </ul>
+  {% endif %}
+
+  {% if site.donate.amazon_wishlist_url %}
+  <a class="wishlist-link" href="{{ site.donate.amazon_wishlist_url }}">
+    <svg viewBox="0 0 24 24"><path d="M4 5.5C4 4.67 4.67 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13Zm16 0C20 4.67 19.33 4 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5v-13Z"/></svg>
+    Order books from an Amazon wishlist &rarr;
+  </a>
+  {% endif %}
+</div>
+{% endif %}

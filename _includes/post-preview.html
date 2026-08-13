@@ -1,0 +1,9 @@
+{% comment %} Expects include.post {% endcomment %}
+<article class="post-card">
+  <span class="post-card__date">{{ include.post.date | date: "%b %d, %Y" }}</span>
+  <h3 class="post-card__title"><a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a></h3>
+  {% if include.post.excerpt and include.post.excerpt != empty %}
+  <p class="post-card__excerpt">{{ include.post.excerpt | strip_html | truncatewords: 30 }}</p>
+  {% endif %}
+  <a class="post-card__more" href="{{ include.post.url | relative_url }}">Read more &rarr;</a>
+</article>

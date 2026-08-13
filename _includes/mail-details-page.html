@@ -1,0 +1,26 @@
+{% comment %}
+  Renders the same address/rules/topics/statement content as the
+  homepage's mail box, but flowing as plain page content instead of a
+  card, and without the "More on letter writing" link (this IS that
+  page, linking to itself would be circular).
+{% endcomment %}
+{% if site.mail.address %}
+<p class="mail-address">{{ site.mail.address }}</p>
+{% if site.mail.rules and site.mail.rules.size > 0 %}
+<ul class="mail-rules">
+  {% for rule in site.mail.rules %}<li>{{ rule }}</li>{% endfor %}
+</ul>
+{% endif %}
+{% endif %}
+
+{% if site.mail.topics.size > 0 or site.mail.statement %}
+<h2>Likes hearing about</h2>
+{% if site.mail.topics and site.mail.topics.size > 0 %}
+<ul class="topic-tags">
+  {% for topic in site.mail.topics %}<li>{{ topic }}</li>{% endfor %}
+</ul>
+{% endif %}
+{% if site.mail.statement %}
+<blockquote class="statement-box">&ldquo;{{ site.mail.statement }}&rdquo;</blockquote>
+{% endif %}
+{% endif %}

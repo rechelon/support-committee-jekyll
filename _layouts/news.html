@@ -1,0 +1,19 @@
+---
+layout: default
+---
+<main class="news-page">
+  <div class="wrap">
+    <a class="title-banner" href="{{ '/' | relative_url }}">
+      <span class="title-banner__text">{{ site.title }}</span>
+    </a>
+  </div>
+
+  <div class="wrap post-list news-page__list">
+    {% for post in site.posts %}
+      {% include post-preview.html post=post %}
+    {% endfor %}
+    {% if site.posts.size == 0 %}
+    <p>No updates yet — check back soon.</p>
+    {% endif %}
+  </div>
+</main>

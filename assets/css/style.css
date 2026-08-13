@@ -1,0 +1,724 @@
+/* ============================================================
+   Support Committee Theme — main stylesheet
+   ============================================================
+   Plain, static CSS — no Liquid/front matter, so it's always
+   served with a correct text/css content-type by any server.
+   The handful of colors that vary per scheme (the :root token
+   block) live in an inline <style> tag in _includes/head.html
+   instead, generated from _config.yml at build time.
+   ============================================================ */
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:var(--page-bg);
+    color:var(--text-primary);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:var(--link-color); text-decoration-thickness:1px; text-underline-offset:3px; }
+  a:hover{ color:var(--link-hover); }
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--focus-ring);
+    outline-offset:2px;
+  }
+
+  img{ max-width:100%; display:block; }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  .wrap{
+    max-width:var(--col-max);
+    margin-inline:auto;
+    padding-inline:24px;
+  }
+
+  h1,h2,h3{
+    font-family:var(--display);
+    text-transform:uppercase;
+    letter-spacing:.01em;
+    font-weight:400;
+    line-height:1.05;
+    margin:0;
+  }
+
+  /* ============================================================
+     HERO PHOTO — now lives at the top of the news column instead
+     of spanning the full page, so the info column can start flush
+     at the top of the viewport.
+     ============================================================ */
+  .hero-photo-inner{
+    position:relative;
+  }
+  .hero__photo{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+
+  /* Signature element: a circular alert stamp overlaid on the photo.
+     Meant to be toggled on only when there's something urgent to flag
+     (hunger strike, calls needed, upcoming hearing, etc). Static text,
+     no live data — a support committee edits it by hand when needed. */
+  .alert-stamp{
+    position:absolute;
+    right:-18px;
+    bottom:-10px;
+    width:132px;
+    height:132px;
+    border-radius:50%;
+    background:var(--card-bg);
+    border:3px double var(--stamp-border);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    transform:rotate(-9deg);
+    box-shadow:0 4px 14px rgba(0,0,0,.35);
+    z-index:10;
+  }
+  .alert-stamp::before{
+    content:"";
+    position:absolute;
+    inset:-7px;
+    border-radius:50%;
+    border:1px dashed var(--stamp-border);
+    opacity:.55;
+  }
+  .alert-stamp__text{
+    font-family:var(--mono);
+    font-weight:700;
+    text-transform:uppercase;
+    color:var(--stamp-text);
+    padding:0 16px;
+  }
+  .alert-stamp__text .line1{
+    display:block;
+    font-size:.86rem;
+    letter-spacing:.04em;
+  }
+  .alert-stamp__text .line2{
+    display:block;
+    margin-top:4px;
+    font-size:.64rem;
+    letter-spacing:.06em;
+    color:var(--stamp-text);
+  }
+
+  /* Title bar under the photo: site title + case CTA, flush, no rotation.
+     Also reused as a plain link back home on the news archive page — the
+     a.title-banner rules below only apply in that anchor form. */
+  .title-banner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    padding:16px 24px;
+    background:var(--banner-bg);
+    border:2px solid var(--banner-border);
+    text-decoration:none;
+  }
+  a.title-banner:hover .title-banner__text{ color:#fdfaf5; }
+  .title-banner__text{
+    font-family:var(--display);
+    color:var(--banner-text);
+    font-size:clamp(1.1rem, 3vw, 1.6rem);
+    letter-spacing:.02em;
+    white-space:nowrap;
+  }
+  .title-banner__cta{
+    font-family:var(--mono);
+    font-size:.82rem;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--banner-text);
+    text-decoration:none;
+    border-bottom:1px solid var(--banner-text);
+    white-space:nowrap;
+  }
+  .title-banner__cta:hover{ color:#fdfaf5; border-bottom-color:#fdfaf5; }
+  /* fixed light color on purpose: --banner-bg is always the dark/saturated
+     variant of the accent across every scheme, so a literal near-white
+     hover state is guaranteed to stay legible regardless of palette */
+  .title-banner__cta span.arrow{
+    display:inline-block;
+    margin-left:8px;
+    transition:transform .15s ease;
+  }
+  .title-banner__cta:hover span.arrow{ transform:translateX(4px); }
+
+  /* Featured news story — optional, same colors as the title banner.
+     Only renders when a post is flagged featured (most recent wins if
+     more than one is flagged). Title text only, no extra copy. */
+  .featured-banner{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:16px 24px;
+    background:var(--banner-bg);
+    border:2px solid var(--banner-border);
+    color:var(--banner-text);
+    font-family:var(--display);
+    text-transform:uppercase;
+    text-align:center;
+    font-size:1.05rem;
+    letter-spacing:.02em;
+    text-decoration:none;
+    transition:box-shadow .15s ease, transform .15s ease;
+  }
+  .featured-banner:hover{
+    box-shadow:5px 5px 0 var(--card-border);
+    transform:translate(-2px,-2px);
+  }
+  .featured-banner .arrow{
+    display:inline-block;
+    transition:transform .15s ease;
+  }
+  .featured-banner:hover .arrow{ transform:translateX(4px); }
+
+  /* Non-cooperating co-defendants — optional, a row of link buttons */
+  .codefendant-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:4px;
+  }
+  .codefendant-link{
+    display:inline-flex;
+    align-items:center;
+    padding:10px 16px;
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    color:var(--text-primary);
+    font-family:var(--mono);
+    font-size:.8rem;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    text-decoration:none;
+    transition:background .15s ease, color .15s ease;
+  }
+  .codefendant-link:hover{
+    background:var(--link-color);
+    border-color:var(--link-color);
+    color:var(--white);
+  }
+
+  /* ============================================================
+     MAIN — two column split, equal width. Named grid areas let the
+     info column span the full height and start flush at the top,
+     while the hero photo + banner + posts stack in the left column.
+     ============================================================ */
+  main{
+    padding:24px 24px 0;
+  }
+  .columns{
+    max-width:var(--col-max);
+    margin-inline:auto;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "hero info"
+      "posts info";
+    column-gap:56px;
+    row-gap:36px;
+    align-items:start;
+  }
+  .hero-block{ grid-area:hero; }
+  .post-block{ grid-area:posts; }
+  .info-stack{ grid-area:info; }
+
+  /* -------- news column -------- */
+  .post-list{
+    display:flex;
+    flex-direction:column;
+  }
+  .post-card{
+    padding:20px 0;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .post-card:first-child{ padding-top:0; }
+  .post-card__date{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  .post-card__title{
+    font-family:var(--display);
+    text-transform:none;
+    font-weight:400;
+    font-size:1.4rem;
+    margin:6px 0 8px;
+    line-height:1.15;
+  }
+  .post-card__title a{
+    color:var(--ink);
+    text-decoration:none;
+  }
+  .post-card__title a:hover{ color:var(--accent); }
+  .post-card__excerpt{
+    color:var(--ink-soft);
+    font-size:.97rem;
+    margin:0 0 8px;
+  }
+  .post-card__more{
+    font-family:var(--mono);
+    font-size:.75rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+  }
+
+  .archive-link{
+    display:inline-block;
+    margin-top:24px;
+    font-family:var(--mono);
+    font-size:.8rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+    border-bottom:1px solid var(--accent);
+  }
+
+  /* -------- info column -------- */
+  .info-stack{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+  .box{
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    padding:22px 22px 24px;
+    position:relative;
+  }
+  /* perforated notch top-left, like a tear-off form / carbon copy */
+  .box::before{
+    content:"";
+    position:absolute;
+    top:-1px; left:18px; right:18px;
+    height:0;
+    border-top:1px dashed var(--hairline);
+  }
+  .box__divider{
+    border-top:1px dashed var(--line);
+    margin:20px 0;
+  }
+  .box h3{
+    font-size:1.15rem;
+    text-transform:none;
+    margin-bottom:10px;
+    line-height:1.2;
+  }
+  .box p{ margin:0 0 10px; font-size:.95rem; }
+  .box p:last-child{ margin-bottom:0; }
+
+  /* bio box */
+  .box--bio .box__link{
+    display:inline-block;
+    margin-top:6px;
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+    border-bottom:1px solid var(--accent);
+  }
+
+  /* mail box */
+  .mail-address{
+    font-family:var(--mono);
+    font-size:.86rem;
+    line-height:1.7;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:12px 14px;
+    margin:0 0 14px;
+    white-space:pre-line;
+  }
+  .mail-rules{
+    margin:0;
+    padding-left:18px;
+    font-size:.88rem;
+    color:var(--ink-soft);
+  }
+  .mail-rules li{ margin-bottom:5px; }
+
+  /* topics box */
+  .topic-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  .topic-tags li{
+    font-family:var(--mono);
+    font-size:.74rem;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    padding:5px 10px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+  }
+
+  .statement-box{
+    margin:16px 0 10px;
+    padding:12px 14px;
+    background:var(--paper);
+    border-left:3px solid var(--accent);
+    font-style:italic;
+    font-size:.92rem;
+    color:var(--ink-soft);
+  }
+
+  /* donate box — the one card that deliberately inverts to a solid
+     block for emphasis, regardless of what "dark" means in a given
+     color scheme */
+  .box--donate{
+    background:var(--emphasis-bg);
+    border-color:var(--emphasis-bg);
+    color:var(--emphasis-text);
+  }
+  .box--donate p{ color:var(--emphasis-text-dim); }
+
+  /* Donation embed — a wrapper for whatever real HTML snippet a
+     committee pastes into site.donate.donation_embed (a PayPal button,
+     Donorbox, GiveButter, etc). Rendered as-is; just keep embedded
+     content from overflowing the card. */
+  .donation-embed{
+    margin-top:14px;
+  }
+  .donation-embed iframe,
+  .donation-embed img,
+  .donation-embed button{
+    max-width:100%;
+  }
+
+  .donate-methods{
+    list-style:none;
+    margin:20px 0 16px;
+    padding:0;
+    border-top:1px dashed color-mix(in srgb, var(--emphasis-text) 25%, transparent);
+  }
+  .donate-method{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 0;
+    border-bottom:1px dashed color-mix(in srgb, var(--emphasis-text) 25%, transparent);
+  }
+  /* Icon glyph color: normally the same as --emphasis-bg, but a scheme
+     can override just this one thing (--icon-glyph-color, set in the
+     inline :root block in _includes/head.html) for cases where the
+     donate box background was overridden to a saturated accent color
+     rather than the neutral ink/paper swap. Falls back automatically
+     if the scheme never sets it. */
+  .donate-method__icon{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 auto;
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:.85rem;
+    background:var(--emphasis-text);
+    color:var(--icon-glyph-color, var(--emphasis-bg));
+  }
+  .donate-method__icon svg{ width:16px; height:16px; fill:currentColor; }
+  .donate-method--paypal .donate-method__icon{ background:#0070ba; color:#fff; }
+  .donate-method--venmo .donate-method__icon{ background:#3d95ce; color:#fff; }
+  .donate-method--cashapp .donate-method__icon{ background:#00c244; color:#fff; }
+  .donate-method--zelle .donate-method__icon{ background:#6d1ed4; color:#fff; }
+  .donate-method--btc .donate-method__icon{ background:var(--emphasis-highlight); color:var(--icon-glyph-color, var(--emphasis-bg)); font-size:1rem; }
+  .donate-method--gofundme .donate-method__icon{ background:#00b964; color:#fff; }
+  .donate-method--commissary .donate-method__icon{ background:var(--emphasis-highlight); color:var(--icon-glyph-color, var(--emphasis-bg)); }
+  .donate-method--gofundme .donate-method__value a{
+    color:var(--emphasis-highlight);
+    text-decoration:none;
+    border-bottom:1px solid var(--emphasis-highlight);
+  }
+  .donate-method--gofundme .donate-method__value a:hover{ color:var(--emphasis-text); border-bottom-color:var(--emphasis-text); }
+  .donate-method__body{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+  }
+  .donate-method__label{
+    font-family:var(--mono);
+    font-size:.7rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--emphasis-highlight);
+  }
+  .donate-method__value{
+    font-family:var(--mono);
+    font-size:.82rem;
+    color:var(--emphasis-text);
+    word-break:break-all;
+  }
+
+  .wishlist-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:4px;
+    font-family:var(--mono);
+    font-size:.82rem;
+    letter-spacing:.04em;
+    text-decoration:none;
+    color:var(--emphasis-text);
+    border-bottom:1px solid var(--emphasis-highlight);
+  }
+  .wishlist-link svg{ width:15px; height:15px; fill:currentColor; flex:0 0 auto; }
+  .wishlist-link:hover{ color:var(--emphasis-highlight); }
+
+  /* boxes that link straight through to a dedicated page — used for
+     any extra pages a committee adds beyond the default ones */
+  a.box{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+    transition:box-shadow .15s ease, transform .15s ease;
+  }
+  a.box:hover{
+    box-shadow:5px 5px 0 var(--card-border);
+    transform:translate(-2px,-2px);
+  }
+  a.box:hover h3{ color:var(--link-color); }
+  a.box .box__arrow{
+    display:inline-block;
+    margin-left:6px;
+    transition:transform .15s ease;
+  }
+  a.box:hover .box__arrow{ transform:translateX(4px); }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer{
+    margin-top:64px;
+    border-top:1px solid var(--line-soft);
+    background:var(--paper-dim);
+  }
+  .footer__inner{
+    max-width:var(--col-max);
+    margin-inline:auto;
+    padding:34px 24px 40px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+    text-align:center;
+  }
+  .social-row{
+    display:flex;
+    gap:14px;
+  }
+  .social-row a{
+    width:40px; height:40px;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--ink);
+    border-radius:50%;
+    color:var(--ink);
+    text-decoration:none;
+    transition:background .15s ease, color .15s ease, transform .15s ease;
+  }
+  .social-row a:hover{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:var(--white);
+    transform:rotate(-6deg);
+  }
+  .social-row svg{ width:18px; height:18px; fill:currentColor; }
+
+  .footer__meta{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    line-height:1.8;
+  }
+  .footer__meta a{ color:var(--ink-soft); }
+  .footer__meta a:hover{ color:var(--accent); }
+
+  .footer__friends{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    line-height:1.8;
+  }
+  .footer__friends a{ color:var(--text-primary); border-bottom:1px solid var(--hairline); }
+  .footer__friends a:hover{ color:var(--accent); border-bottom-color:var(--accent); }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 860px){
+    .columns{
+      grid-template-columns:1fr;
+      grid-template-areas:
+        "hero"
+        "info"
+        "posts";
+      row-gap:0;
+      column-gap:0;
+    }
+    /* Photo + banner lead (identity first), then actionable info
+       (bio/mail/donate) since a visitor arriving on a phone is more
+       likely mid-action than browsing archives, then the post list. */
+    .hero-block{ margin-bottom:32px; }
+    .info-stack{ margin-bottom:44px; }
+    /* Show 3 of the 5 posts on mobile; "View all updates" covers the rest */
+    .post-card:nth-child(n+4){ display:none; }
+  }
+
+  @media (max-width: 560px){
+    .alert-stamp{
+      width:96px;
+      height:96px;
+      right:-10px;
+      bottom:-8px;
+    }
+    .alert-stamp__text .line1{ font-size:.68rem; }
+    .alert-stamp__text .line2{ font-size:.52rem; }
+  }
+
+  /* ============================================================
+     SINGLE-PAGE / POST LAYOUT — used for the bio page and any other
+     standalone page. One column, no two-column grid. The photo +
+     title banner + page-nav links form one floated block against the
+     top right; body copy flows around it (not a full-height sidebar).
+     ============================================================ */
+  .post-page{
+    padding:24px 24px 0;
+  }
+  .post-page__inner{
+    display:flow-root; /* contains the float so the footer lands correctly */
+    max-width:var(--col-max);
+    margin-inline:auto;
+  }
+
+  .page-sidebar{
+    float:right;
+    width:280px;
+    margin:0 0 32px 40px;
+  }
+  .page-sidebar__photo-link{ display:block; }
+  .page-sidebar__photo{ width:100%; height:auto; display:block; }
+
+  .page-sidebar__banner{
+    display:block;
+    padding:14px 18px;
+    background:var(--banner-bg);
+    border:2px solid var(--banner-border);
+    text-decoration:none;
+    text-align:center;
+  }
+  .page-sidebar__banner-text{
+    font-family:var(--display);
+    color:var(--banner-text);
+    font-size:1.1rem;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+  }
+  .page-sidebar__banner:hover .page-sidebar__banner-text{ color:#fdfaf5; }
+
+  .page-sidebar__links{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:22px;
+  }
+  .page-sidebar__links .box{
+    padding:16px 18px;
+  }
+  .page-sidebar__links .box h3{
+    font-size:1rem;
+    line-height:1.25;
+  }
+
+  .post-content h1{
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    text-transform:none;
+    line-height:1.1;
+  }
+  .post-content--page h1{ margin:0 0 22px; }
+  .post-content--post h1{ margin:0 0 8px; }
+  .post-content__date{
+    font-family:var(--mono);
+    font-size:.8rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 22px;
+  }
+  .post-content p{
+    margin:0 0 18px;
+    color:var(--text-primary);
+  }
+  .post-content h2{
+    font-size:1.3rem;
+    text-transform:none;
+    margin:34px 0 14px;
+  }
+  .post-content ul, .post-content ol{
+    margin:0 0 18px;
+    padding-left:22px;
+    color:var(--text-primary);
+  }
+  .post-content li{ margin-bottom:6px; }
+  .post-content .mail-address,
+  .post-content .mail-rules,
+  .post-content .topic-tags,
+  .post-content .statement-box{
+    margin-bottom:22px;
+  }
+
+  @media (max-width: 860px){
+    .page-sidebar{
+      float:none;
+      width:100%;
+      margin:0 0 24px;
+    }
+    /* Photo and page-nav links add a lot of vertical scroll for not much
+       payoff on a phone — keep just the title banner (still links home)
+       and let people scroll straight into the content. */
+    .page-sidebar__photo-link{ display:none; }
+    .page-sidebar__links{ display:none; }
+  }
+
+  /* News archive — reuses .title-banner and .post-list/.post-card as-is */
+  .news-page{
+    padding:24px 24px 0;
+  }
+  .news-page__list{
+    margin-top:36px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
+  }

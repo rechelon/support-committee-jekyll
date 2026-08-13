@@ -1,0 +1,10 @@
+{% if site.codefendants and site.codefendants.size > 0 %}
+<div class="box box--codefendants">
+  <h3>Non-cooperating co-defendants</h3>
+  <div class="codefendant-links">
+    {% for cd in site.codefendants %}
+    <a class="codefendant-link" href="{{ cd.url }}">{{ cd.name }}</a>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

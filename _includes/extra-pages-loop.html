@@ -1,0 +1,20 @@
+{% comment %}
+  Renders every page flagged nav:true and show_on_homepage:true as a
+  whole-box link-card, skipping whichever page/post you're currently
+  on. Add a new page with that front matter and it shows up here
+  automatically — no template edits needed.
+
+  Params:
+    include.current      — page.url of the page/post being rendered
+    include.show_preview — true to include the short `preview` blurb
+                            (used on the homepage); omit for nav lists
+{% endcomment %}
+{% assign extra_pages = site.pages | where: "nav", true | where: "show_on_homepage", true | sort: "nav_order" %}
+{% for p in extra_pages %}
+  {% if p.url != include.current %}
+<a class="box" href="{{ p.url | relative_url }}">
+  <h3>{{ p.title }} <span class="box__arrow">&rarr;</span></h3>
+  {% if include.show_preview and p.preview %}<p>{{ p.preview }}</p>{% endif %}
+</a>
+  {% endif %}
+{% endfor %}

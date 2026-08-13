@@ -1,0 +1,328 @@
+# =====================================================================
+# Support Committee Theme — site settings
+# =====================================================================
+# This is the only file most committees should need to edit. Almost
+# every section below is OPTIONAL: leave a value blank, remove it, or
+# set it to false, and the corresponding box/section on the site will
+# just not render — nothing breaks. Look for "optional" in the
+# comments to know what's safe to delete.
+# =====================================================================
+
+title: "Support EXAMPLE"
+description: "Support committee for EXAMPLE, facing federal charges connected to grand jury subpoenas targeting local mutual aid networks."
+
+# Must match one of the keys under color_schemes at the bottom of this
+# file. See that section for the full list of options.
+color_scheme: dark_forest
+
+url: ""        # e.g. "https://supportexample.org" — leave blank for GitHub Pages default
+baseurl: ""    # e.g. "/supportexample" if publishing to a project subpage on GitHub Pages
+
+# -----------------------------------------------------------------
+# Hero photo — shown full-width at the top of the front page, and
+# smaller in the corner of every other page. Leave `photo` blank to
+# hide it everywhere (the title banner still shows on its own).
+# -----------------------------------------------------------------
+photo: /assets/images/example.jpg
+photo_alt: "Portrait of EXAMPLE"
+
+# -----------------------------------------------------------------
+# Optional urgent-alert stamp, overlaid on the bottom-right corner of
+# the hero photo. Leave alert.line1 blank to hide it. This is meant
+# for short-lived urgent items (hunger strike, upcoming hearing, call-in
+# campaign) — swap the text in and out as needed, there's no dynamic
+# expiration logic.
+# -----------------------------------------------------------------
+alert:
+  line1: "Hunger Strike"
+  line2: "Calls Needed"
+
+# -----------------------------------------------------------------
+# Case summary page (case-summary.md). Optional — if you don't want a
+# separate page for this, set to false. When false, the "Learn more
+# about the case" banner CTA and its nav-menu entry are both hidden,
+# leaving just the site title in the banner.
+# -----------------------------------------------------------------
+case_summary_page: true
+
+# -----------------------------------------------------------------
+# Bio. bio.md holds the full page; this is just the short teaser shown
+# in the box on the front page. Bio is the one page in this theme that
+# isn't optional — every committee needs at least a short bio.
+# -----------------------------------------------------------------
+bio_teaser: >
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+  ad minim veniam, quis nostrud exercitation ullamco laboris.
+
+# -----------------------------------------------------------------
+# Non-cooperating co-defendants. Optional and probably irrelevant for
+# most cases — leave the list empty (codefendants: []) or delete the
+# key to hide the box entirely. Each entry just needs a name + a URL
+# to link out to (their own support site, a court records page, etc).
+# -----------------------------------------------------------------
+codefendants:
+  - name: "Marc Smith"
+    url: "https://example.com"
+  - name: "DNC 17 Committee"
+    url: "https://example.com"
+
+# -----------------------------------------------------------------
+# Mail / letter-writing. The /send-a-letter/ page always exists (like
+# bio) regardless of what's set here. The front-page box mirroring
+# this content is optional though — if mail.address is blank, that
+# box is hidden. rules, topics, and statement are each independently
+# optional within it.
+# -----------------------------------------------------------------
+mail:
+  address: |
+    EXAMPLE #00123-456
+    FCI Example
+    PO Box 1000
+    Example, ST 00000
+  rules:
+    - "Include your full return address or mail may be rejected."
+    - "Blue or black ink only — no markers, glitter, or stickers."
+    - "Photos okay (no polaroids, no glossy paper)."
+    - "No stamps, cash, or metal/spiral-bound items."
+  topics:
+    - "Gardening"
+    - "Sci-Fi"
+    - "Chess"
+    - "Prison Abolition"
+    - "Music Zines"
+    - "Dogs"
+  statement: "Send me memes from social media you like, transcribe your favorite poem — anything that reminds you of the outside."
+
+# -----------------------------------------------------------------
+# Donate box. Optional as a whole — if every field below is blank,
+# the box is hidden. Each donation method is independently optional.
+# -----------------------------------------------------------------
+donate:
+  blurb: "Every dollar goes directly to phone time, commissary, and legal costs. No amount is too small."
+  donation_embed: ""   # optional — paste any HTML embed snippet (a real PayPal button, Donorbox, GiveButter, etc) and it renders as-is
+  paypal_email: "give@example.org"
+  venmo: "@ExampleSupport"
+  cashapp: "$ExampleSupport"
+  zelle: ""
+  bitcoin: "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh"
+  gofundme_url: ""
+  commissary_service: "Access Corrections"   # whatever service the facility uses (JPay, TouchPay, etc)
+  commissary_instructions: ""                 # e.g. a facility code or account number
+  amazon_wishlist_url: ""
+
+# -----------------------------------------------------------------
+# Social icons, shown in the footer in this fixed order regardless of
+# which are filled in: Instagram, Mastodon, Bluesky, Twitter/X,
+# Facebook. Leave any blank to hide just that one icon.
+# -----------------------------------------------------------------
+social:
+  instagram: ""
+  mastodon: ""
+  bluesky: ""
+  twitter: ""
+  facebook: ""
+
+contact_email: "supportexample@riseup.net"   # optional — hides the "Write:" footer line if blank
+
+# -----------------------------------------------------------------
+# "Our friends" footer links — optional list of allied orgs (ABC
+# chapters, NLG, SPLC, etc). Leave empty to hide the line.
+# -----------------------------------------------------------------
+friends:
+  - name: "ABC No Rio"
+    url: "https://example.com"
+  - name: "SPLC"
+    url: "https://example.com"
+  - name: "NLG"
+    url: "https://example.com"
+
+# How many post previews show on the front page on desktop. Mobile
+# always shows 3 regardless of this number, matching the design.
+front_page_post_count: 5
+
+# =====================================================================
+# COLOR SCHEMES
+# =====================================================================
+# Set color_scheme above to any key below. Each scheme supplies the 10
+# base color tokens; a few schemes also need to override one or two of
+# the derived "component" colors (see the "overrides" comment in
+# assets/css/style.css for what these do) — those live under
+# `overrides` and are optional per-scheme.
+#
+# To add a brand new scheme: copy a block, give it a new key, and set
+# color_scheme to that key. No CSS or template changes needed.
+# =====================================================================
+color_schemes:
+  comrade:
+    paper: "#f1ece0"
+    paper_dim: "#e7e0cf"
+    ink: "#1c1a17"
+    ink_soft: "#4a4438"
+    accent: "#b5202a"
+    accent_dark: "#6e1319"
+    accent_2: "#c98a2c"
+    line: "#8c8577"
+    line_soft: "#c9c2ae"
+    white: "#fffdf8"
+
+  dark_forest:
+    paper: "#e4f0e2"
+    paper_dim: "#d5e6d1"
+    ink: "#17231c"
+    ink_soft: "#3f4f3f"
+    accent: "#2f5233"
+    accent_dark: "#1c3320"
+    accent_2: "#a67c3d"
+    line: "#7c8a72"
+    line_soft: "#c3cdb4"
+    white: "#fbfaf3"
+
+  understory:
+    paper: "#12180f"
+    paper_dim: "#1c241a"
+    ink: "#e8ecdf"
+    ink_soft: "#a9b79c"
+    accent: "#6f9b57"
+    accent_dark: "#4c7038"
+    accent_2: "#d9b25c"
+    line: "#445039"
+    line_soft: "#2c3524"
+    white: "#1c2418"
+
+  pastel_bloom:
+    paper: "#f5eef8"
+    paper_dim: "#ece0f2"
+    ink: "#3a2540"
+    ink_soft: "#6b5473"
+    accent: "#9b5fc0"
+    accent_dark: "#6f3d92"
+    accent_2: "#e8a0c4"
+    line: "#b79bc7"
+    line_soft: "#ddc9e6"
+    white: "#fdfaff"
+
+  blackout:
+    paper: "#0d0d0d"
+    paper_dim: "#1a1a1a"
+    ink: "#f2f2f0"
+    ink_soft: "#b8b6b0"
+    accent: "#d21f2e"
+    accent_dark: "#8c1420"
+    accent_2: "#d9a441"
+    line: "#3a3a38"
+    line_soft: "#2a2a28"
+    white: "#1c1c1a"
+    overrides:
+      emphasis_bg: accent_dark
+      emphasis_text: ink
+      emphasis_text_dim: ink_soft
+      icon_glyph_dark: true   # keeps donate-method icon glyphs readable — see style.css
+
+  cinder:
+    paper: "#141414"
+    paper_dim: "#1e1e1e"
+    ink: "#e6e4e0"
+    ink_soft: "#e2e0da"
+    accent: "#e8503f"
+    accent_dark: "#a8342a"
+    accent_2: "#7a7a76"
+    line: "#333330"
+    line_soft: "#262624"
+    white: "#1c1c1a"
+    overrides:
+      emphasis_bg: accent_dark
+      emphasis_text: ink
+      emphasis_text_dim: ink_soft
+      icon_glyph_dark: true
+
+  liberation:
+    paper: "#0f0f0e"
+    paper_dim: "#1a1a17"
+    ink: "#f4f1e8"
+    ink_soft: "#c2bba5"
+    accent: "#c8102e"
+    accent_dark: "#7a0a1c"
+    accent_2: "#2e7d32"
+    line: "#3a382f"
+    line_soft: "#26251f"
+    white: "#1c1c17"
+    overrides:
+      emphasis_highlight: accent_dark
+
+  static:
+    paper: "#101012"
+    paper_dim: "#1b1b1e"
+    ink: "#f5f2f3"
+    ink_soft: "#cfc7cb"
+    accent: "#ff3f9e"
+    accent_dark: "#a4185f"
+    accent_2: "#37e6d1"
+    line: "#3d3a3e"
+    line_soft: "#28262a"
+    white: "#1c1a1e"
+    overrides:
+      emphasis_highlight: accent_dark
+
+  general_strike:
+    paper: "#f4ecd8"
+    paper_dim: "#e8dcb8"
+    ink: "#171512"
+    ink_soft: "#4a4438"
+    accent: "#cc1f2a"
+    accent_dark: "#7a1017"
+    accent_2: "#f0b400"
+    line: "#a89b6e"
+    line_soft: "#ddd0a0"
+    white: "#fffbf0"
+
+  firebreak:
+    paper: "#160f0b"
+    paper_dim: "#211712"
+    ink: "#f4ece2"
+    ink_soft: "#cdb9a8"
+    accent: "#e8551f"
+    accent_dark: "#a83a12"
+    accent_2: "#f2b705"
+    line: "#4a3a2c"
+    line_soft: "#332821"
+    white: "#241a14"
+    overrides:
+      emphasis_highlight: accent_dark
+
+  cortex:
+    paper: "#eef3f7"
+    paper_dim: "#dce6ee"
+    ink: "#10202e"
+    ink_soft: "#3f5568"
+    accent: "#0a84c7"
+    accent_dark: "#085a8a"
+    accent_2: "#4fd1c5"
+    line: "#9db3c2"
+    line_soft: "#cddbe6"
+    white: "#f8fbfd"
+
+  singularity:
+    paper: "#070a12"
+    paper_dim: "#10151f"
+    ink: "#eaf2fb"
+    ink_soft: "#9fb3c8"
+    accent: "#2fd1ff"
+    accent_dark: "#0e6fa8"
+    accent_2: "#a06bff"
+    line: "#26324a"
+    line_soft: "#182131"
+    white: "#121a26"
+
+# =====================================================================
+# Jekyll / build settings — committees shouldn't need to touch these.
+# =====================================================================
+markdown: kramdown
+permalink: /:title/
+plugins:
+  - jekyll-feed
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

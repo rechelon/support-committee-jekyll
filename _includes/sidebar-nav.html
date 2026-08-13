@@ -1,0 +1,40 @@
+{% comment %}
+  The floated photo + banner + page-nav block used on every page and
+  post except the homepage itself. Pass include.current = page.url so
+  the current page can exclude itself from its own nav list.
+{% endcomment %}
+<aside class="page-sidebar">
+  {% if site.photo %}
+  <a class="page-sidebar__photo-link" href="{{ '/' | relative_url }}" aria-label="Back to homepage">
+    <img class="page-sidebar__photo" src="{{ site.photo | relative_url }}" alt="{{ site.photo_alt | default: site.title }}">
+  </a>
+  {% endif %}
+
+  <a class="page-sidebar__banner" href="{{ '/' | relative_url }}">
+    <span class="page-sidebar__banner-text">{{ site.title }}</span>
+  </a>
+
+  <div class="page-sidebar__links">
+    {% if site.case_summary_page and include.current != '/case-summary/' %}
+    <a class="box" href="{{ '/case-summary/' | relative_url }}"><h3>About the case <span class="box__arrow">&rarr;</span></h3></a>
+    {% endif %}
+
+    {% if include.current != '/bio/' %}
+    <a class="box" href="{{ '/bio/' | relative_url }}"><h3>Full bio <span class="box__arrow">&rarr;</span></h3></a>
+    {% endif %}
+
+    {% if include.current != '/send-a-letter/' %}
+    <a class="box" href="{{ '/send-a-letter/' | relative_url }}"><h3>Send a letter <span class="box__arrow">&rarr;</span></h3></a>
+    {% endif %}
+
+    {% assign has_donate = false %}
+    {% if site.donate.donation_embed or site.donate.paypal_email or site.donate.venmo or site.donate.cashapp or site.donate.zelle or site.donate.bitcoin or site.donate.gofundme_url or site.donate.commissary_instructions or site.donate.amazon_wishlist_url %}
+      {% assign has_donate = true %}
+    {% endif %}
+    {% if has_donate %}
+    <a class="box" href="{{ '/#donate' | relative_url }}"><h3>Donate <span class="box__arrow">&rarr;</span></h3></a>
+    {% endif %}
+
+    {% include extra-pages-loop.html current=include.current %}
+  </div>
+</aside>

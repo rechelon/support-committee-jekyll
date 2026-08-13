@@ -1,0 +1,130 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
+{% if page.description %}<meta name="description" content="{{ page.description }}">
+{% elsif site.description %}<meta name="description" content="{{ site.description }}">
+{% endif %}
+
+<!-- Dynamic per-scheme colors only — kept inline so they're always
+     served as part of the HTML response (never a separate file with
+     its own content-type to get wrong). Everything else is the plain
+     static stylesheet linked below. -->
+<style>
+{% assign scheme = site.color_schemes[site.color_scheme] %}
+{% unless scheme %}{% assign scheme = site.color_schemes.dark_forest %}{% endunless %}
+
+/* ============================================================
+   TOKENS
+   ============================================================
+   Two layers on purpose:
+   1) BASE PALETTE — generated below from whichever scheme is set as
+      `color_scheme` in _config.yml. Add a new scheme there (10 hex
+      values, optionally a few `overrides`) and it works everywhere
+      without touching this file.
+   2) COMPONENT ALIASES — what the rest of this stylesheet actually
+      reads (--banner-bg, --link-color, etc). Components never
+      reference the base palette directly, so a new scheme only has
+      to supply the base values and everything downstream follows.
+   ============================================================ */
+:root{
+  /* 1) base palette */
+  --paper:      {{ scheme.paper }};
+  --paper-dim:  {{ scheme.paper_dim }};
+  --ink:        {{ scheme.ink }};
+  --ink-soft:   {{ scheme.ink_soft }};
+  --accent:      {{ scheme.accent }};
+  --accent-dark: {{ scheme.accent_dark }};
+  --accent-2:    {{ scheme.accent_2 }};
+  --line:       {{ scheme.line }};
+  --line-soft:  {{ scheme.line_soft }};
+  --white:      {{ scheme.white }};
+
+  /* 2) component aliases — each optionally overridable per scheme via
+     `color_schemes.<slug>.overrides` in _config.yml */
+  --page-bg:       var(--paper);
+  --panel-bg:       var(--paper-dim);
+  --card-bg:        var(--white);
+  --card-border:    var(--ink);
+  --text-primary:   var(--ink);
+  --text-secondary: var(--ink-soft);
+  --link-color:     var(--accent);
+  --link-hover:     var(--accent-dark);
+  --banner-bg:      var(--accent-dark);
+  --banner-border:  var(--ink);
+  --banner-text:    var(--paper);
+  --stamp-border:   var(--ink);
+  --stamp-text:     var(--accent);
+  {% if scheme.overrides.emphasis_bg %}--emphasis-bg: var(--{{ scheme.overrides.emphasis_bg | replace: '_', '-' }});
+  {% else %}--emphasis-bg: var(--ink);
+  {% endif %}
+  {% if scheme.overrides.emphasis_text %}--emphasis-text: var(--{{ scheme.overrides.emphasis_text | replace: '_', '-' }});
+  {% else %}--emphasis-text: var(--paper);
+  {% endif %}
+  {% if scheme.overrides.emphasis_text_dim %}--emphasis-text-dim: var(--{{ scheme.overrides.emphasis_text_dim | replace: '_', '-' }});
+  {% else %}--emphasis-text-dim: var(--paper-dim);
+  {% endif %}
+  {% if scheme.overrides.emphasis_highlight %}--emphasis-highlight: var(--{{ scheme.overrides.emphasis_highlight | replace: '_', '-' }});
+  {% else %}--emphasis-highlight: var(--accent-2);
+  {% endif %}
+  {% if scheme.overrides.icon_glyph_dark %}--icon-glyph-color: var(--paper);
+  {% endif %}
+  --hairline:       var(--line);
+  --hairline-soft:  var(--line-soft);
+  --focus-ring:     var(--accent-2);
+
+  --display: "Anton", sans-serif;
+  --mono:    "JetBrains Mono", monospace;
+  --body:    "Lora", serif;
+
+  --col-max: 1120px;
+  --radius: 2px;
+}
+
+/* ============================================================
+   FONTS — self-hosted, vendored in assets/fonts/ (via @fontsource
+   packages). No external requests, no third-party tracking.
+   ============================================================ */
+@font-face{
+  font-family:"Anton";
+  src:url("{{ '/assets/fonts/anton-latin-400-normal.woff2' | relative_url }}") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"JetBrains Mono";
+  src:url("{{ '/assets/fonts/jetbrains-mono-latin-400-normal.woff2' | relative_url }}") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"JetBrains Mono";
+  src:url("{{ '/assets/fonts/jetbrains-mono-latin-500-normal.woff2' | relative_url }}") format("woff2");
+  font-weight:500; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"JetBrains Mono";
+  src:url("{{ '/assets/fonts/jetbrains-mono-latin-700-normal.woff2' | relative_url }}") format("woff2");
+  font-weight:700; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Lora";
+  src:url("{{ '/assets/fonts/lora-latin-400-normal.woff2' | relative_url }}") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Lora";
+  src:url("{{ '/assets/fonts/lora-latin-400-italic.woff2' | relative_url }}") format("woff2");
+  font-weight:400; font-style:italic; font-display:swap;
+}
+@font-face{
+  font-family:"Lora";
+  src:url("{{ '/assets/fonts/lora-latin-500-normal.woff2' | relative_url }}") format("woff2");
+  font-weight:500; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Lora";
+  src:url("{{ '/assets/fonts/lora-latin-600-normal.woff2' | relative_url }}") format("woff2");
+  font-weight:600; font-style:normal; font-display:swap;
+}
+</style>
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">

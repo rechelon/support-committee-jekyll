@@ -1,0 +1,66 @@
+---
+layout: default
+---
+<main>
+  <div class="columns">
+
+    <!-- ============ HERO BLOCK — photo + banner ============ -->
+    <div class="hero-block">
+      <div class="hero-photo-inner">
+        {% if site.photo %}
+        <img class="hero__photo" src="{{ site.photo | relative_url }}" alt="{{ site.photo_alt | default: site.title }}">
+        {% endif %}
+        {% if site.alert.line1 %}
+        <div class="alert-stamp" role="status" aria-label="Alert: {{ site.alert.line1 }}{% if site.alert.line2 %}. {{ site.alert.line2 }}{% endif %}.">
+          <span class="alert-stamp__text">
+            <span class="line1">{{ site.alert.line1 }}</span>
+            {% if site.alert.line2 %}<span class="line2">{{ site.alert.line2 }}</span>{% endif %}
+          </span>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="title-banner">
+        <span class="title-banner__text">{{ site.title }}</span>
+        {% if site.case_summary_page %}
+        <a class="title-banner__cta" href="{{ '/case-summary/' | relative_url }}">Learn more about the case <span class="arrow">&rarr;</span></a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- ============ INFO COLUMN — starts flush at the top ============ -->
+    <div class="info-stack">
+
+      <div class="box box--bio">
+        {% if site.bio_teaser %}<p>{{ site.bio_teaser }}</p>{% endif %}
+        <a class="box__link" href="{{ '/bio/' | relative_url }}">Full bio &rarr;</a>
+      </div>
+
+      {% include featured-banner.html %}
+
+      {% include codefendants-box.html %}
+
+      {% include mail-box.html %}
+
+      {% include donate-box.html %}
+
+      {% include extra-pages-loop.html current=page.url show_preview=true %}
+
+    </div>
+
+    <!-- ============ POST BLOCK — continues the left column ============ -->
+    <div class="post-block">
+      <div class="post-list">
+        {% assign preview_count = site.front_page_post_count | default: 5 %}
+        {% for post in site.posts limit: preview_count %}
+        {% include post-preview.html post=post %}
+        {% endfor %}
+      </div>
+
+      {% if site.posts.size > 0 %}
+      <a class="archive-link" href="{{ '/news/' | relative_url }}">View all updates &rarr;</a>
+      {% endif %}
+    </div>
+
+  </div>
+</main>

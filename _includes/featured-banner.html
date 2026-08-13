@@ -1,0 +1,8 @@
+{% comment %}
+  Only one featured banner ever renders. If more than one post has
+  featured: true in its front matter, the most recently dated one wins.
+{% endcomment %}
+{% assign featured_posts = site.posts | where: "featured", true | sort: "date" | reverse %}
+{% if featured_posts.size > 0 %}
+<a class="featured-banner" href="{{ featured_posts.first.url | relative_url }}">{{ featured_posts.first.title }} <span class="arrow">&rarr;</span></a>
+{% endif %}
